@@ -24,9 +24,16 @@
 </head>
 
 <body>
+    <?php
+        session_start(); // Dòng này phải có ở đầu file
+    ?>
+
+    <!-- Header -->
     <header>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #343A40;">
-            <a class="navbar-brand text-white" href="#">Navbar</a>
+            <a class="navbar-brand text-white" href="#">
+                <img style="height: 40px; width: auto;" src="https://e7.pngegg.com/pngimages/779/61/png-clipart-logo-idea-cute-eagle-leaf-logo-thumbnail.png" alt="">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,6 +47,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#">THÔNG TIN GIẢM GIÁ</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">GIỎ HÀNG</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
@@ -51,18 +61,27 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">DANH MỤC 1</a>
+                        <a class="nav-link text-white" href="#">HELP CENTER</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">DANH MỤC 2</a>
+                        <a class="nav-link text-white" href="#">ABOUT US</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-outline-light my-2 mr-2 my-sm-0" type="submit">Search</button>
                 </form>
-                <a class="btn btn-outline-light ml-2" href="login.html">Đăng Nhập</a>
-                <a class="btn btn-outline-light ml-2" href="register.html">Đăng Ký</a>
+                    <?php
+                        if (isset($_SESSION['username'])) {
+                            // Nếu đã đăng nhập, hiển thị tên người dùng và nút đăng xuất
+                            echo '<a class="btn btn-outline-light disabled" href="#">Chào, ' . $_SESSION['username'] . '</a>';
+                            echo '<a class="btn btn-outline-light" href="./logout.php">Đăng Xuất</a>';
+                        } else {
+                            // Nếu chưa đăng nhập, hiển thị nút đăng nhập và đăng ký
+                            echo '<a class="btn btn-outline-light" href="./login.php">Đăng Nhập</a>';
+                            echo '<a class="btn btn-outline-light" href="./register.php">Đăng Ký</a>';
+                        }
+                    ?>
             </div>
         </nav>
     </header>
@@ -112,28 +131,30 @@
     <div class="container my-4">
         <div class="main">
             <div class="row">
-                <div class="ml-4 mb-3 col-">
-                    <a class="anchor-laptop" href="#">Sản phẩm PC</a>
+                <div class="mb-3 col-12 d-flex align-items-center justify-content-between">
+                    <p class="ml-2 mb-0 anchor-laptop text-left text-md-left">Sản phẩm PC</p>
+                    <a href="laptopProduct.html" class="btn btn-link text-right">Xem tất cả</a>
                 </div>
             </div>
             <div class="row">
-                <div class="pb-4 p col-md-3">
+                <div class="pb-4 col-md-3">
                     <div class="card h-100">
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -143,18 +164,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -164,18 +186,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -185,18 +208,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -206,18 +230,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -227,18 +252,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -248,18 +274,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -269,18 +296,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -315,33 +343,33 @@
         <hr>
     </div>
 
-    
-
     <div class="container my-4">
         <div class="main">
             <div class="row">
-                <div class="ml-4 mb-3 col-">
-                    <a class="anchor-laptop" href="#">Sản phẩm PC</a>
+                <div class="mb-3 col-12 d-flex align-items-center justify-content-between">
+                    <p class="ml-2 mb-0 anchor-laptop text-left text-md-left">Sản phẩm Laptop</p>
+                    <a href="./html/laptopProduct.html" class="btn btn-link text-right">Xem tất cả</a>
                 </div>
             </div>
             <div class="row">
-                <div class="pb-4 p col-md-3">
+                <div class="pb-4 col-md-3">
                     <div class="card h-100">
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -351,18 +379,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -372,18 +401,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -393,18 +423,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -414,18 +445,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -435,18 +467,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -456,18 +489,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -477,18 +511,19 @@
                         <img src="./img/list-item-1.webp" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title">Laptop Model XYZ</h5>
-                            <ul class="list-unstyled">
-                                <li><strong>CPU:</strong> i5-13420H</li>
-                                <li><strong>RAM:</strong> 16 GB</li>
-                                <li><strong>Storage:</strong> 512 GB SSD</li>
-                                <li><strong>GPU:</strong> RTX 2050</li>
-                                <li><strong>Refresh Rate:</strong> 144 Hz</li>
-                                <li><strong>Screen:</strong> 15.6 inch FHD</li>
+                            <ul class="list-unstyled specs-list">
+                                <li class="spec-item"><i class="fas fa-microchip"></i> <strong>CPU:</strong> i5-13420H</li>
+                                <li class="spec-item"><i class="fas fa-memory"></i> <strong>RAM:</strong> 16 GB</li>
+                                <li class="spec-item"><i class="fas fa-hdd"></i> <strong>Storage:</strong> 512 GB SSD</li>
+                                <li class="spec-item"><i class="fas fa-video"></i> <strong>GPU:</strong> RTX 2050</li>
+                                <li class="spec-item"><i class="fas fa-sync"></i> <strong>Refresh Rate:</strong> 144 Hz</li>
+                                <li class="spec-item"><i class="fas fa-tv"></i> <strong>Screen:</strong> 15.6 inch FHD</li>
                             </ul>
                             <p class="card-text font-weight-bold">Price: $1,299</p>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Buy Now</a>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                            <button class="btn btn-outline-secondary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -573,6 +608,7 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="bg-dark text-light pt-5 pb-4">
         <div class="container text-md-left">
             <div class="row">
@@ -590,10 +626,8 @@
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h6 class="text-uppercase font-weight-bold">Products</h6>
                     <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #f0f0f0; height: 2px"/>
-                    <p><a href="#" class="text-light">Product 1</a></p>
-                    <p><a href="#" class="text-light">Product 2</a></p>
-                    <p><a href="#" class="text-light">Product 3</a></p>
-                    <p><a href="#" class="text-light">Product 4</a></p>
+                    <p><a href="#" class="text-light">SẢN PHẨM PC</p>
+                    <p><a href="#" class="text-light">SẢN PHẨM LAPTOP</a></p>
                 </div>
     
                 <!-- Support Section -->
@@ -602,8 +636,6 @@
                     <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #f0f0f0; height: 2px"/>
                     <p><a href="#" class="text-light">Help Center</a></p>
                     <p><a href="#" class="text-light">Contact Us</a></p>
-                    <p><a href="#" class="text-light">Order Tracking</a></p>
-                    <p><a href="#" class="text-light">FAQs</a></p>
                 </div>
     
                 <!-- Contact Section -->
@@ -630,6 +662,6 @@
         <div class="text-center py-3">
             © 2024 Company Name. All rights reserved.
         </div>
-    </footer> 
+    </footer>
 </body>
 </html>
